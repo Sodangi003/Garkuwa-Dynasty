@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Garkuwa Admin Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+<body>
+  <header>
+    <h1>Garkuwa Family — Admin Dashboard</h1>
+    <p class="small" style="margin:4px 0 0;opacity:0.9">Signed in as <%= username %></p>
+  </header>
+
+  <div class="container">
+    <nav class="sidebar">
+      <h2>ADMIN CONTROLS</h2>
+      <ul>
+        <li><button id="btn-dashboard" class="active">Dashboard</button></li>
+        <li><button id="btn-members">Members</button></li>
+        <li><button id="btn-events">Events</button></li>
+        <li><button id="btn-announcements">Announcements</button></li>
+        <li><button id="btn-gallery">Gallery</button></li>
+        <li><button id="btn-accounts">Family Accounts</button></li>
+        <li><a href="/" style="display:block;padding:10px;color:inherit;text-decoration:none">&larr; Back to site</a></li>
+        <li>
+          <form action="/logout" method="POST" style="margin:0">
+            <button type="submit" class="ghost small" style="width:100%;text-align:left">Log out</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="card" id="main-area">
+      <div id="error-banner" class="notice error-notice hidden"></div>
+      <div id="success-banner" class="notice success-notice hidden"></div>
+
+      <!-- Dashboard view -->
+      <section id="view-dashboard">
+        <div class="topbar">
+          <div>
+            <h2 style="margin:0">Overview</h2>
+            <p class="small" style="margin:6px 0;color:var(--muted)">Changes made here save to the server and appear on the live site immediately.</p>
+          </div>
+        </div>
+        <div class="card-grid">
+          <div class="card" style="padding:12px">
+            <h3 id="count-members">Members: 0</h3>
+            <p class="small">Add, edit or remove family members.</p>
+            <div style="margin-top:8px"><button id="open-members" class="ghost small">Go to Members</button></div>
+          </div>
+          <div class="card" style="padding:12px">
+            <h3 id="count-events">Events: 0</h3>
+            <p class="small">Upcoming events and RSVPs.</p>
+            <div style="margin-top:8px"><button id="open-events" class="ghost small">Go to Events</button></div>
+          </div>
+          <div class="card" style="padding:12px">
+            <h3 id="count-announcements">Announcements: 0</h3>
+            <p class="small">Important family notices.</p>
+            <div style="margin-top:8px"><button id="open-announcements" class="ghost small">Go to Announcements</button></div>
+          </div>
+          <div class="card" style="padding:12px">
+            <h3 id="count-gallery">Photos: 0</h3>
+            <p class="small">Family photo gallery.</p>
+            <div style="margin-top:8px"><button id="open-gallery" class="ghost small">Go to Gallery</button></div>
+          </div>
+          <div class="card" style="padding:12px">
+            <h3 id="count-accounts">Family Accounts: 0</h3>
+            <p class="small">Everyone who's signed up to view the site.</p>
+            <div style="margin-top:8px"><button id="open-accounts" class="ghost small">Go to Accounts</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Members view -->
+      <section id="view-members" class="hidden">
+        <div class="topbar">
+          <h2 style="margin:0">Members</h2>
+          <div><button id="add-member-btn" class="btn small">Add Member</button></div>
+        </div>
+
+        <div id="members-list">
+          <table>
+            <thead><tr><th>Name</th><th>Relation</th><th>Phone/Email</th><th>Actions</th></tr></thead>
+            <tbody id="members-tbody"></tbody>
+          </table>
+        </div>
+
+        <div id="member-form" class="hidden" style="margin-top:12px">
+          <h3 id="member-form-title">Add Member</h3>
+          <label for="m-name">Full name</label>
+          <input id="m-name" type="text">
+          <div class="form-row">
+            <div>
+              <label for="m-relation">Relation</label>
+              <input id="m-relation" type="text">
+            </div>
+            <div>
+              <label for="m-contact">Phone / Email</label>
+              <input id="m-contact" type="text">
+            </div>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="save-member" class="btn small">Save</button>
+            <button id="cancel-member" class="ghost small">Cancel</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events view -->
+      <section id="view-events" class="hidden">
+        <div class="topbar">
+          <h2 style="margin:0">Events</h2>
+          <div><button id="add-event-btn" class="btn small">Add Event</button></div>
+        </div>
+
+        <div id="events-list">
+          <table>
+            <thead><tr><th>Title</th><th>Date &amp; time</th><th>Location</th><th>Actions</th></tr></thead>
+            <tbody id="events-tbody"></tbody>
+          </table>
+        </div>
+
+        <div id="event-form" class="hidden" style="margin-top:12px">
+          <h3 id="event-form-title">Add Event</h3>
+          <label for="e-title">Title</label>
+          <input id="e-title" type="text">
+          <div class="form-row">
+            <div>
+              <label for="e-date">Date &amp; time</label>
+              <input id="e-date" type="datetime-local">
+            </div>
+            <div>
+              <label for="e-location">Location</label>
+              <input id="e-location" type="text">
+            </div>
+          </div>
+          <label for="e-desc">Description</label>
+          <textarea id="e-desc" rows="3"></textarea>
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="save-event" class="btn small">Save Event</button>
+            <button id="cancel-event" class="ghost small">Cancel</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Announcements view -->
+      <section id="view-announcements" class="hidden">
+        <div class="topbar">
+          <h2 style="margin:0">Announcements</h2>
+          <div><button id="add-ann-btn" class="btn small">New Announcement</button></div>
+        </div>
+
+        <div id="ann-list">
+          <table>
+            <thead><tr><th>Date</th><th>Title</th><th>Message</th><th>Actions</th></tr></thead>
+            <tbody id="ann-tbody"></tbody>
+          </table>
+        </div>
+
+        <div id="ann-form" class="hidden" style="margin-top:12px">
+          <h3 id="ann-form-title">New Announcement</h3>
+          <label for="a-title">Title (optional)</label>
+          <input id="a-title" type="text">
+          <label for="a-msg">Message</label>
+          <textarea id="a-msg" rows="3"></textarea>
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="save-ann" class="btn small">Publish</button>
+            <button id="cancel-ann" class="ghost small">Cancel</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery view -->
+      <section id="view-gallery" class="hidden">
+        <div class="topbar">
+          <h2 style="margin:0">Gallery</h2>
+          <div><a href="/gallery" target="_blank" class="ghost small" style="text-decoration:none;display:inline-block">View live gallery &#8599;</a></div>
+        </div>
+
+        <div class="upload-dropzone">
+          <p style="margin:0 0 10px">Upload photos (JPG, PNG, GIF, or WEBP, up to 5MB each)</p>
+          <input id="photo-input" type="file" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+          <div style="margin-top:10px">
+            <button id="upload-photos-btn" class="btn small">Upload</button>
+          </div>
+          <p id="upload-status" class="small" style="margin-top:8px;color:var(--muted)"></p>
+        </div>
+
+        <div id="admin-gallery-grid" class="admin-gallery-grid"></div>
+      </section>
+
+      <!-- Accounts view -->
+      <section id="view-accounts" class="hidden">
+        <div class="topbar">
+          <h2 style="margin:0">Family Accounts</h2>
+        </div>
+        <p class="small" style="color:var(--muted);margin-top:-4px">
+          Anyone can sign up at <code>/signup</code> to view the private family pages.
+          Give someone admin access if they should be able to edit content too.
+        </p>
+
+        <div id="accounts-list">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead>
+            <tbody id="accounts-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <small>&copy; 2025 Garkuwa Family — Admin Dashboard</small>
+  </footer>
+
+  <script src="/js/admin-script.js"></script>
+</body>
+</html>

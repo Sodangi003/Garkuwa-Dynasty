@@ -1,0 +1,23 @@
+{
+  "name": "garkuwa-portal-backend",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Express + EJS backend for The Garkuwa Family portal, with an authenticated admin dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "hash-password": "node scripts/hash-password.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.0"
+  }
+}

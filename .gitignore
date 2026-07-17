@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+
+# Contains password hashes and emails -- never commit this.
+data/users.json
+
+# Visitor-submitted contact form messages (PII), created at runtime.
+data/contacts.json

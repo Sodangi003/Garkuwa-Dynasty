@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign Up | Garkuwa Family Portal</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+<body>
+  <header>
+    <h1>Garkuwa Family Portal</h1>
+  </header>
+
+  <div class="card" style="max-width:420px;margin:60px auto">
+    <h2 style="margin-top:0">Create your account</h2>
+    <p class="small" style="margin-top:-8px;color:var(--muted)">
+      For Garkuwa family members — sign up to see the private family pages.
+    </p>
+    <% if (error) { %>
+      <div class="notice error-notice"><%= error %></div>
+    <% } %>
+    <form method="POST" action="/signup">
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" required autofocus autocomplete="name" value="<%= values.name %>">
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required autocomplete="email" value="<%= values.email %>">
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password">
+      <p class="small" style="margin-top:-8px;color:var(--muted)">At least 8 characters.</p>
+
+      <label for="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" autocomplete="new-password">
+
+      <div style="margin-top:12px">
+        <button type="submit" class="btn small">Sign up</button>
+      </div>
+    </form>
+    <p class="small" style="margin-top:16px">
+      Already have an account? <a href="/login">Log in</a>
+    </p>
+  </div>
+
+  <footer>
+    <small>&copy; 2025 Garkuwa Family &middot; <a href="/">Back to site</a></small>
+  </footer>
+</body>
+</html>

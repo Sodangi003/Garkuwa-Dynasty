@@ -1,0 +1,26 @@
+[
+  {
+    "id": "seed-m1",
+    "name": "Zainab Ahmed Aminu",
+    "relation": "grand daughter(sister)",
+    "contact": ""
+  },
+  {
+    "id": "seed-m2",
+    "name": "Ghaddafi Muhammad",
+    "relation": "grand son(brother)",
+    "contact": ""
+  },
+  {
+    "id": "seed-m3",
+    "name": "Aminu Awwal Ahmed",
+    "relation": "son(uncle)",
+    "contact": ""
+  },
+  {
+    "id": "seed-m4",
+    "name": "Amina Garkuwa",
+    "relation": "Daughter (aunty)",
+    "contact": ""
+  }
+]
